@@ -9,3 +9,6 @@ admin.site.register(contactdb)
 
 from .models import orderfromwebsite
 admin.site.register(orderfromwebsite)
+
+from .models import after_payment
+admin.site.register(after_payment)

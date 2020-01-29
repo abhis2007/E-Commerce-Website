@@ -49,10 +49,30 @@
                     <div class="row ml-2">
                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <div class="form-group">
+                                <input type="hidden" aria-describedby="emailHelp" name="goods_amount" id="goods_amount">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ml-2">
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <input type="hidden" aria-describedby="emailHelp" name="goods_name" id="goods_name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ml-2">
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <input type="hidden" aria-describedby="emailHelp" name="goods_count" id="goods_count">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ml-2">
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-group">
                                 <input type="hidden" aria-describedby="emailHelp" name="price" id="product_price">
                             </div>
                         </div>
-
                     </div>
                     <div class="row ml-2">
                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -117,8 +137,8 @@
                         <div class="col-sm-8 col-xl-8 col-lg-8 col-xl-8 col-md-8">
                     <button id="pay" class="btn btn-sm btn-primary btn-block text-center" type="submit">Pay Now </button>
                     </div>
-                            <div class="row"><div class="col-sm-2 col-xl-2 col-lg-2 col-xl-2 col-md-2"></div>
-                            </div>
+                        <div class="row"><div class="col-sm-2 col-xl-2 col-lg-2 col-xl-2 col-md-2"></div>
+                        </div>
                     </div>
                     </div>
                 </form>
@@ -145,12 +165,21 @@
             values_cart_product=Object.values(cart);
             var money=0;
             var counter=0;
+            var goods_name="";
+            var goods_count="";
+            var goods_amount="";
 
             for(var i=0;i<keys_cart_product.length;i++){
             if(values_cart_product[i]>0){
                 counter+=1;
+
+                goods_name=goods_name+document.getElementById(keys_cart_product[i]).innerHTML+",";
+                goods_count=goods_count+values_cart_product[i]+",";
+                goods_amount=goods_amount+document.getElementById("price_"+keys_cart_product[i]).innerHTML+",";
+
+
                 document.getElementById("products").innerHTML=document.getElementById("products").innerHTML+document.getElementById(keys_cart_product[i]).innerHTML+" -- "+values_cart_product[i]+"Pcs"+" , ";
-                money=money+(document.getElementById("price_"+keys_cart_product[i]).innerHTML*+values_cart_product[i]);
+                money=money+(document.getElementById("price_"+keys_cart_product[i]).innerHTML*values_cart_product[i]);
                 }
                 }
                 var k=document.getElementById("products").innerHTML;
@@ -168,6 +197,12 @@
                 document.getElementById("billing").style.display="none";
                 }
                 document.getElementById("product_price").value=money;
+
+                document.getElementById("goods_name").value=goods_name;
+                document.getElementById("goods_count").value=goods_count;
+                document.getElementById("goods_amount").value=goods_amount;
+
+
 
     </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import product
 from .models import contactdb
 from .models import orderfromwebsite
+from .models import after_payment
 from django.views.decorators.csrf import csrf_exempt
 from paytm import Checksum
 import random
@@ -55,22 +56,36 @@ def cart(request):
     return render(request,'cart.html')
 def tracker(request):
     return render(request,'tracker.html')
-def search(request):
-    return render(request,'search.html')
+
 def productview(request,myid):
     prodViewDetails={product.objects.filter(id=myid)}
     myCart={prodViewDetails[0] for prodViewDetails in prodViewDetails}
     return render(request,'productview.html',{"cartProduct":myCart})
+
 def checkoutPage(request,checkoutId):
     prodViewDetails={product.objects.filter(id=checkoutId)}
-    # myCart={prodViewDetails[0] for prodViewDetails in prodViewDetails}
-
-    myCart=allproducts=product.objects.all()
+    myCart=product.objects.all()
     return render(request,'checkout.html',{"cartProduct":myCart})
-def billingpage(request,billingid):
-    prodViewDetails={product.objects.filter(id=billingid)}
-    myCart={prodViewDetails[0] for prodViewDetails in prodViewDetails}
-    return render(request,'billing.html',{"cartProduct":myCart})
+
+def billingsearcher(request):
+#     if request.method=="POST":
+#         orderId=request.POST.get("orderId")
+#     myCart=product.objects.all()
+#     beforepayment=orderfromwebsite.objects.all()
+#     afterpayment=after_payment.objects.all()
+#     print("jjjj",orderId,afterpayment[0],len(afterpayment))
+#     # for i in range(len(afterpayment)):
+#     params={"cartProduct":myCart,"beforepayment":beforepayment,"afterpayment":afterpayment}
+    return render(request,'bill_searcher.html')
+
+def billingpage(request):
+        if request.method=="POST":
+            orderId=request.POST.get("orderId")
+        myCart=product.objects.all()
+        beforepayment=orderfromwebsite.objects.filter(orderId=orderId)
+        afterpayment=after_payment.objects.filter(orderid=orderId)
+        params={"beforepayment":beforepayment,"afterpayment":afterpayment}
+        return render(request,'billing.html',params)
 
 def contact(request):
     if request.method=="POST":
@@ -90,6 +105,9 @@ def contact(request):
 
 def handlepaymentmode(request):
     if(request.method=="POST"):
+        goods_name=request.POST.get("goods_name")
+        goods_amount=request.POST.get("goods_amount")
+        goods_count=request.POST.get("goods_count")
         price=request.POST.get("price")
         first_name=request.POST.get("first_name")
         last_name=request.POST.get("last_name")
@@ -104,7 +122,7 @@ def handlepaymentmode(request):
         if rd not in w:
             w.append(rd)
         orderId=w[len(w)-1]
-        customeroredered = orderfromwebsite(orderId=orderId,price=price,first_name=first_name,last_name=last_name,phone_number=phone_number,email=email,state=state,city=city,code=code,local=local,)
+        customeroredered = orderfromwebsite(goods_name=goods_name,goods_amount=goods_amount,goods_count=goods_count,orderId="LXI"+str(orderId),price=price,first_name=first_name,last_name=last_name,phone_number=phone_number,email=email,state=state,city=city,code=code,local=local,)
         customeroredered.save()
         data_dict = {
             'MID': 'hoIoYf23662428021793',
@@ -131,11 +149,58 @@ def paytmsentposturl(request):
         if i=='CHECKSUMHASH':
             checksum=data[i]
     verify = Checksum.verify_checksum(return_response_by_paytm, MERCHANT_KEY,checksum)
-    if(verify):
-        if return_response_by_paytm['RESPCODE']=='01':
+    PAYTMRESPONSE = after_payment(orderid=return_response_by_paytm['ORDERID'],
+                                  transaction_amount=return_response_by_paytm['TXNAMOUNT'],
+                                  transaction_date=return_response_by_paytm['TXNDATE'],
+                                  currency=return_response_by_paytm['CURRENCY'],
+                                  status=return_response_by_paytm['STATUS'],
+                                  response_code=return_response_by_paytm['RESPCODE'],
+                                  response_message=return_response_by_paytm['RESPMSG'],
+                                  bank_transaction_id=return_response_by_paytm['BANKTXNID'],
+                                  transaction_id=return_response_by_paytm['TXNID'],
+                                  checksum=verify)
+    PAYTMRESPONSE.save()
+    if (verify):
+        if return_response_by_paytm['RESPCODE'] == '01':
+            return render(request, "paytmsatuspage.html", {'paytmresponse': return_response_by_paytm})
             print("order successful")
         else:
-            print("order not successful!")
+            return render(request, "paytmsatuspage.html", {'paytmresponse': return_response_by_paytm})
     else:
-        print("OOPS")
-    return render(request,"paytmsatuspage.html",{'paytmresponse':return_response_by_paytm});
+        # if checksum not verify
+        return render(request, "someonechangesmid.html")
+
+
+def searchmatchdata(items,customer_query):
+    customer_query=customer_query.lower()
+    customer_query=customer_query.split(" ")
+    ct=0
+    for i in range(len(customer_query)):
+        if(customer_query[i] in items.productname.lower() or customer_query[i] in  items.Description.lower() or customer_query[i] in  items.Category.lower() or customer_query[i] in  customer_query[i] in items.SubCategory.lower()):
+            return True
+        else:
+            ct+=1
+    if(ct==len(customer_query)):
+        return False
+
+def search(request):
+    customer_query=request.GET.get('search')
+    print("",customer_query)
+    allproducts=product.objects.all()
+    n=len(allproducts)
+    Category=product.objects.values("Category")
+    ProdName=(product.objects.values("productname"))
+    prodName={ items['productname'] for items in ProdName}
+    ProdName=FirstCharCapital(str(prodName))
+    lists={ item['Category'] for item in Category}
+    databases=[]
+    for items in lists:
+        dupl_element=product.objects.filter(Category=items)
+        element=[items for items in dupl_element if searchmatchdata(items,customer_query)]
+        n=len(element)
+        catprods=FirstCharCapital(items);
+        if(n>0):
+            databases.append([range(1,n),element,catprods])
+    params={'allprods':databases,'product':allproducts,'length':len(databases)}
+    # databases={'catlen':length,'category':lists,'total_slides':slides,'range':range(1,slides),'product':products,'val':range(1,n)}
+    return render(request,'search.html',params)

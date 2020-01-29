@@ -1,20 +1,273 @@
 <!doctype html>
 <html lang="en">
-  <head></head>
-  <title></title>
-  <body>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script><!--google cdn-->
+      <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script><!--microsoft cdn-->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT&display=swap" rel="stylesheet">
+    <title>Laxmi General Store-HOME</title>
+      <style>
+
+
+      .btn{
+        opacity:0.6;
+
+
+        }
+        .btn:hover{
+        background-color:green;
+        opacity:1;
+        }
+        .div1{
+        font-size:0px;
+        }
+        #products{
+        font-size:25px;
+
+        }
+
+
+
+          #b1,#b2,#b3,#b4,#b5{
+          border:1px solid black;
+          }
+          #text{
+          font-size:190%;
+          }
+          #ct_detail{
+          float-left;
+          }
+          #invoice_section{
+          font-family:none;
+          color:black;
+          }
+          #invoice_section,#customer_section{
+          font-family:none;
+          color:black;
+          }
+          #dec_section{
+          font-family:none;
+          }
+          #email{
+          float:right;
+          }#mdata{
+          float:right;
+          }
+            #sign{
+            float:right;
+            }
+          #total_amt,#payableamt{
+          float:right;
+          }
+  </style>
+  </head>
+  {%for i in afterpayment%}
+  <div class="row">
+      <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 xol-xs-2"></div>
+      <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 xol-xs-6">
+          <div id="b1" class="row pt-5 mt-4">
+              <div id="text" class="col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xs-7 text-dark"><i><b>Laxmi General Store</b></i></div>
+              <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xs-5">
+                  <div id="ct_detail">
+                      <div class="row text-dark ">Phone:+918799714607</div>
+                      <div class="row">Email:abhishekkumar880247@gmail.com</div>
+                      <div class="row">Billing Date:{{i.transaction_date}}</div>
+                       {%for j in beforepayment%}
+                      <div class="row">Delivered To:{{j.state}},{{j.city}},{{j.local}},{{j.code}}</div>
+                       {%endfor%}
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 xol-xs-2"></div>
+  </div>
+  <div class="row">
+      <div class="col-sm-2 col-lg-2 col-xs-2 col-xl-2 col-md-2"></div>
+      <div id="invoice_section" class="col-sm-6 col-md-6 col-lg-6 col-xl-6 xol-xs-6 mt-4 pt-4 pb-4 h5">INVOICE DETAILS</div>
+      <div class="col-sm-2 col-lg-2 col-xs-2 col-xl-2 col-md-2"></div>
+  </div>
+  <div class="row">
+      <div class="col-sm-2 col-lg-2 col-md-2 col-xl-2 col-xs-2"></div>
+      <div id="b2" class="col-sm-6 col-md-6 col-lg-6 col-xl-6 xol-xs-6">
+          <div class="row">
+              <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xs-7"><h5>Invoice Id/Order Id</h5>{{i}}</div>
+              <div id="payableamt" class="col-sm-5 col-md-5 col-lg-5 col-xs-5 col-xl-5">AMOUNT TO BE PAID<div>{{i.transaction_amount}}</div></div>
+          </div>
+           <div class="row">
+              <div id="dec_section" class="col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xs-7 pt-4 h6">PAYMENT STATUS</div>
+               <div class="col-sm-5 col-md-5 col-lg-5 col-xs-5 col-xl-5">TRANSACTION ID<div>{{i.transaction_id}}</div></div>
+          </div>
+          <div class="row">
+               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xs-5">{{i.status}}</div>
+          </div>
+      </div>
+  <div class="col-sm-2 col-lg-2 col-md-2 col-xl-2 col-xs-2"></div>
+  </div>
+  {%endfor%}
+  <div class="row">
+      <div class="col-sm-2 col-lg-2 col-xs-2 col-xl-2 col-md-2"></div>
+      <div id="customer_section" class="col-sm-6 col-md-6 col-lg-6 col-xl-6 xol-xs-6 mt-4 pt-4 pb-4 h5">CUSTOMER DETAILS</div>
+      <div class="col-sm-2 col-lg-2 col-xs-2 col-xl-2 col-md-2"></div>
+  </div>
+  {%for j in beforepayment%}
+  <div class="row">
+      <div class="col-sm-2 col-lg-2 col-md-2 col-xl-2 col-xs-2"></div>
+      <div id="b3" class="col-sm-6 col-md-6 col-lg-6 col-xl-6 xol-xs-6">
+          <div class="row">
+              <div class="col-sm-4 col-lg-4 col-md-4 col-xl-4 col-xs-4">
+                  <h6>NAME</h6>{{j.first_name}}{{j.last_name}}
+              </div>
+              <div class="col-sm-4 col-lg-4 col-md-4 col-xl-4 col-xs-4">
+                  <h6>PHONE NUMBER</h6>+91{{j.phone_number}}
+              </div>
+              <div class="col-sm-4 col-lg-4 col-md-4 col-xl-4 col-xs-4">
+                  <span id="email"><h6>EMAIL</h6></span></br><div id="mdata">{{j.email}}</div>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-2 col-lg-2 col-md-2 col-xl-2 col-xs-2"></div>
+  </div>
+  <div class="row">
+      <div class="col-sm-2 col-lg-2 col-xs-2 col-xl-2 col-md-2"></div>
+      <div id="billing-detail_section" <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 xol-xs-6 mt-4 pt-4 pb-4 h5">BILLING DETAILS</div>
+      <div class="col-sm-2 col-lg-2 col-xs-2 col-xl-2 col-md-2"></div>
+  </div>
+  <div class="row">
+      <div class="col-sm-2 col-lg-2 col-md-2 col-xl-2 col-xs-2"></div>
+      <div id="b4" class="col-sm-6 col-lg-6 col-md-6 col-xl-6 col-xs-6">
+          <div class="row pl-1">
+              <div class="col-sm-2 col-lg-1 col-md-1 col-xl-1 col-xs-1">
+                  <h6>SL.NO</h6><div id="sl_no"></div>
+              </div>
+              <div class="col-sm-2 col-lg-2 col-md-2 col-xl-2 col-xs-2">
+                  <h6>ITEMS NAME</h6><div id="items_name">{{j.goods_name}}</div>
+              </div>
+              <div class="col-sm-2 col-lg-1 col-md-1 col-xl-1 col-xs-1">
+                  <h6>UNITS</h6><div id="unit">{{j.goods_count}}</div>
+              </div>
+              <div class="col-sm-3 col-lg-3 col-md-3 col-xl-3 col-xs-3">
+                  <h6>PRICE PER UNITS</h6><div id="price_per_unit">{{j.goods_amount}}</div>
+              </div>
+              <div class="col-sm-1 col-lg-2 col-md-2 col-xl-2 col-xs-2">
+                  <h6>GST(18% TAX)</h6><div id="gst"></div>
+              </div>
+              <div class="col-sm-2 col-lg-1 col-md-1 col-xl-1 col-xs-1">
+                  <h6>AMOUNT</h6><div id="gross_amt"></div>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-2 col-lg-2 col-md-2 col-xl-2 col-xs-2"></div>
+  </div>
+  <div class="row">
+      <div class="col-sm-2 col-md-2 col-xl-2 col-lg-2"></div>
+      <div class="col-sm-6 col-md-6 col-xl-6 col-lg-6 h5 pt-5 mt-2">
+          <div class="row">
+              <div id="sign" class="col-sm-8 col-xs-8 col-md-8 col-lg-8 col-xl-8">
+                  <div class="row">COMPUTERISED SIGNATURE</div>
+                  <div class="row"><img src="media/lgs/images/..."></div>
+              </div>
+              <div id="total_amt" class="col-sm-4 col-xs-4 col-md-4 col-lg-4 col-xl-4"></div>
+          </div>
+      </div>
+      <div class="col-sm-2 col-md-2 col-xl-2 col-lg-2"></div>
+  </div>
+
+  {%endfor%}
+        {% for i in cartProduct %}
         <div class="row">
-            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
-                        <h4>Customer's Info.</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4"></div>
+            <div class="col-sm-12 col-lg-12 col-md-12 col-xl-12 div1" id="pr{{i.id}}" hidden>{{i}}</div>
+            <div class="col-sm-12 col-lg-12 col-md-12 col-xl-12 div1" id="price_pr{{i.id}}" style="visibility: hidden">{{i.Price}}</div>
+            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xs-2"></div>
+            <div class="col-sm-8 col-lg-8 col-md-8 col-xl-8" id="products"></div>
+            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xs-2"></div>
         </div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-sm-1 col-md-2 col-lg-2 col-xl-2 mb-5"></div>
+            <div class="col-sm-11 col-md-8 col-lg-8 col-xl-8 mt-4 pt-4" >
+                <form action="handlepaymentmode" method="POST" >{% csrf_token %}
+                    <div class=row">
+                    <div class="row ml-2">
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <input type="hidden" aria-describedby="emailHelp" name="price" id="product_price"><!--hidden-->
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
     <!-- Optional JavaScript -->
   <script type="text/javascript">
+        var val=document.getElementById("items_name").innerHTML;
+        var money=0;
+        var price_of_unit=document.getElementById("price_per_unit").innerHTML;
+        document.getElementById("price_per_unit").innerHTML="";
+        price_units=price_of_unit.split(",");
+        for(var m=0;m<price_units.length;m++){
+        document.getElementById("price_per_unit").innerHTML=document.getElementById("price_per_unit").innerHTML+price_units[m]+"<br>";
+        }
+        var unit=document.getElementById("unit").innerHTML;
+        document.getElementById("unit").innerHTML="";
+        var unit_lists=unit.split(",");
+        for(var k=0;k<unit_lists.length-1;k++){
+        document.getElementById("gst").innerHTML=document.getElementById("gst").innerHTML+"18%"+"<br>";
+        document.getElementById("gross_amt").innerHTML=document.getElementById("gross_amt").innerHTML+(Math.round(unit_lists[k]*price_units[k]*0.82))+"</br>"
+        document.getElementById("unit").innerHTML=document.getElementById("unit").innerHTML+unit_lists[k]+"<br>";
+        money=money+(unit_lists[k]*price_units[k]*0.82)
+        }
+        document.getElementById("total_amt").innerHTML="Total Payable Amount +"+Math.round(money);
+        document.getElementById("items_name").innerHTML="";
+        var lists=val.split(",");
+        for(var i=0;i<lists.length;i++){
+        if(i<lists.length-1)
+            document.getElementById("sl_no").innerHTML=document.getElementById("sl_no").innerHTML+(i+1)+"<br>";
+        document.getElementById("items_name").innerHTML=document.getElementById("items_name").innerHTML+lists[i]+"<br>";
+        }
+<!--  if(localStorage.getItem('cart')==null){-->
+<!--              cart={};-->
+<!--              var i=Object.values(cart);-->
+<!--              }-->
+<!--              else{-->
+<!--            cart=JSON.parse(localStorage.getItem('cart'));-->
+<!--            keys_cart_product=Object.keys(cart);-->
+<!--            values_cart_product=Object.values(cart);-->
+<!--            var money=0;-->
+<!--            var counter=0;-->
+<!--            for(var i=0;i<keys_cart_product.length;i++){-->
+<!--            if(values_cart_product[i]>0){-->
+<!--                counter+=1;-->
+<!--                document.getElementById("sl_no").innerHTML="<i>"+document.getElementById("sl_no").innerHTML+counter+"<br>";-->
+<!--                document.getElementById("gross_amt").innerHTML="<i>"+document.getElementById("gross_amt").innerHTML+(document.getElementById("price_"+keys_cart_product[i]).innerHTML)*values_cart_product[i]+"</br>";-->
+<!--                document.getElementById("price_per_unit").innerHTML="<i>"+document.getElementById("price_per_unit").innerHTML+document.getElementById("price_"+keys_cart_product[i]).innerHTML+"</br>";-->
+<!--                document.getElementById("items_name").innerHTML="<i>"+document.getElementById("items_name").innerHTML+document.getElementById(keys_cart_product[i]).innerHTML+"</i>"+"</br>";-->
+<!--                document.getElementById("unit").innerHTML=document.getElementById("unit").innerHTML+values_cart_product[i]+"</br>";-->
+<!--                money=money+(document.getElementById("price_"+keys_cart_product[i]).innerHTML*+values_cart_product[i]);-->
+<!--                }-->
+<!--                }-->
+<!--                document.getElementById("total_amt").innerHTML=document.getElementById("total_amt").innerHTML+"TOTAL AMOUNT     "+"<b>"+money+"</b>";-->
+<!--                document.getElementById("to_be_paid").innerHTML=document.getElementById("to_be_paid").innerHTML+money;-->
+<!--                var k=document.getElementById("products").innerHTML;-->
+<!--                document.getElementById("pay").innerHTML=document.getElementById("pay").innerHTML+" ( "+money+"  )";-->
+<!--                document.getElementById("clear_cart").onclick=function(){-->
+<!--                localStorage.clear();-->
+<!--                document.getElementById("pay").style.display="none";-->
+<!--                document.getElementById("billing").style.display="none";-->
+<!--                document.getElementById("products").style.display="none";-->
+<!--                }-->
+<!--                }-->
+<!--                if(i.length==0 || money==0){-->
+<!--                document.getElementById("pay").style.display="none";-->
+<!--                document.getElementById("billing").style.display="none";-->
+<!--                }-->
+<!--                document.getElementById("product_price").value=money;-->
 
   </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -23,7 +276,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>
-
 
 
 

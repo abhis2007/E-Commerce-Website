@@ -29,7 +29,6 @@
 <form action="https://securegw-stage.paytm.in/theia/processTransaction" method="POST" name="paytmpage">
     {% for key,value in params.items%}
     <input type="hidden" name="{{key}}" value="{{value}}">
-
     {% endfor %}
 </form>
 <script>

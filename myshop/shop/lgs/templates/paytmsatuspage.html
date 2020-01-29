@@ -12,10 +12,38 @@
       <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT&display=swap" rel="stylesheet">
     <title>HOME</title>
 <body>
-{%for key,value in paytmresponse.items%}
-<div>{{key}}value{{value}}</div>
+    <div class="row pt-2 mt-2 mr-1 ml-2">
+        <div class="col-sm-10 col-xs-10 col-md-10 col-lg-10 col-xl-10"></div>
+        <div class="col-sm-2 col-md-2 col-xl-2 col-lg-2 col-xs-2">
+        <a href="/billingsearcher">
+        <button id="bill_section" class="btn btn-primary btn-block">Get Bill</button>
+        </a>
+         </div>
+    </div>
+<div class="row">
 
-{%endfor%}
+    <div class="col-sm-2 col-md-2 col-xs-2 col-lg-2 col-xl-2"></div>
+    <div class="col-sm-8 col-md-8 col-xs-8 col-lg-8 col-xl-8 mt-2">
+        {%ifequal paytmresponse.STATUS "TXN_FAILURE"%}
+        <div class="h4 pl-4 pt-2">Your Order Of OrderId <i>{{paytmresponse.ORDERID}}</i> Is Not Successful Because Of {{paytmresponse.RESPMSG}}<br><h6><i>Of Amount   <b>INR</b>{{paytmresponse.TXNAMOUNT}}</i></h6></br></div>
+        <div class="mr-4"><img src="/media/lgs/images/payment_failed.jpg"></div>
+        {%endifequal%}
+        {%ifequal paytmresponse.STATUS "TXN_SUCCESS"%}
+        {%ifequal paytmresponse.RESPCODE "01"%}
+        <div class="h4 ml-4 pl-4 pt-2">Your Order Of OrderId <i>{{paytmresponse.ORDERID}}</i> Is Successful via {{paytmresponse.PAYMENTMODE}}<br><h6><i>on {{paytmresponse.TXNDATE}} Of Amount <b>INR</b>{{paytmresponse.TXNAMOUNT}}</i></h6></br></div>
+        <img src="/media/lgs/images/payment successful.png">
+        {%endifequal%}
+        {%endifequal%}
+        {%ifequal paytmresponse.STATUS "TXN_SUCCESS"%}
+        {%ifequal paytmresponse.RESPCODE "01"%}
+        <div class="h3 pl-4 ml-3 pt-3 mt-1 pb-2 mb-3"><i>BanK Details</i></div>
+        <div class="h5">Your Placed Order Is Proceesed From Bank- {{paytmresponse.GATEWAYNAME}} Gateway-{{paytmresponse.GATEWAYNAME}}</div>
+        <div class="h6"><b>Transaction Id : {{paytmresponse.TXNID}} <br>Bank Transaction Id: {{paytmresponse.BANKTXNID}}</b></div>
+        {%endifequal%}
+        {%endifequal%}
+        <div class="h1 mt-5 pt-5 ml-2 mr-2 text-center">HAPPY SHOPPING</div>
+    </div>
+</div>
 <script>
 
 </script>
@@ -25,6 +53,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>
+
 
 
 

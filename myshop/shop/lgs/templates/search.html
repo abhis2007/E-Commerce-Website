@@ -1,10 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script><!--google cdn-->
+      <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script><!--microsoft cdn-->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT&display=swap" rel="stylesheet">
+    <title>Laxmi General Store-HOME</title>
+      <style>
+      font-family: 'Exo 2', sans-serif;
+      .catprod{
+      color:black;
+      height:35px;
+      width:55%;
+      }
+      .nonSlideProds{
+      background-color:#D3D5DB;
+      }
+      #recCat{
+      color:green;
 
-</body>
+      }
+          .col-md-3
+          {
+          display: inline-block;
+          margin-left:-4px;
+          }
+          .carousel-indicators .active {
+          background-color: blue;
+            }
+          .col-md-3 img{
+          width:100%;
+          height:auto;
+          }
+          body .carousel-indicator li{
+          background-color: blue;
+          }
+          body .carousel-indicators{
+          bottom: 0;
+          }
+          body .carousel-control-next-icon{
+          background-color: green;
+          position:relative;
+          top:5%;
+          left:80%;
+          }
+          body .carousel-control-prev-icon{
+          background-color: green;
+          position:relative;
+          top:5%;
+          right:80%;
+          }
+           body .no-padding{
+           padding-left: 0,
+           padding-right: 0;
+           }
+           #colorSlider{
+           background-color:#19BBA3
+           }
+           #prodName{
+           color:blue;
+           text-align:center;
+           font-family:bold,italic;
+           font-family: 'Exo 2', sans-serif;
+           }
+           #prodDesc{
+           font-family: 'Old Standard TT', serif;
+           }
+  </style>
+  </head>
+  {% load static %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="navbar-brand">LAXMI GENERAL STORE</div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="lgs">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link " href="#">MY ORDER</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link " href="about">PROFILE</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link " href="contact">CONTACT US</a>
+      </li>
+
+      <li class="nav-item active ">
+        <a class="nav-link " href="track_order"><h6>TRACK ORDER</h6></a>
+      </li>
+      <li class="nav-item active ">
+        <a class="nav-link " href="#"><h6>LOGOUT</h6></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+      <a href="">
+          <button type="button" class="btn btn-secondary mx-2 cartToolTip" data-toggle="tooltip" data-placement="bottom" title="Your Cart Is Waiting For You!">
+           Cart(<span class="cartUpdate">0</span>)
+          </button>
+      </a>
+      </div>
+</nav>
+    <div id="view" class="row mx-5 nonSlideProds">
+      {%for range,element,catprod in allprods%}
+        <div class="col-sm-12 col-lg-12 col-md-12 col-xl-12">
+            <h5 class="catprod ml-4 mt-4"><strong>{{catprod}}--<span id="recCat">Recommended For You</span></strong></h5>
+        </div>
+        {%for i in element|slice:"0:"%}
+        <div class="col-sm-3 col-lg-3 col-md-3 col-xl-3 mt-5">
+              <div class="card ml-4" style="width: 18rem;">
+                  <a href=""><img src="/media/{{i.Image}}" class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                        <h4 id="prodName" class="card-title">{{i}}</h4>
+                        <p id="prodDesc" class="card-text"><h5>{{i.Description}}</h5></p>
+                        <p class="card-text"><h3>Prices</h3>{{i.Price}}</p>
+                        <span id="controlButtonpr{{i.id}}" class="controlButtonpr">
+                            <button id="pr{{i.id}}" class="btn btn-danger cart">Add To Cart</button>
+                         </span>
+                        <a href="lgs/product/{{i.id}}"><button id="buy {{i.id}}" class="btn btn-primary buynow">BuyNow</button></a>
+                    </div>
+              </div>
+        </div>
+{% endfor %}
+{% endfor %}
+    </div>
+    <!-- Optional JavaScript -->
+  <script type="text/javascript">
+<!--    {%if message|length > 0 %}-->
+<!--    alert('{{message}}');-->
+<!--    window.location.href="/";-->
+<!--    {%endif%}-->
+      function updateMyCart(cartValue){
+        $(".cartUpdate").html(cartValue);
+      }
+      if(localStorage.getItem('cart')==null){
+      cart={};
+      }
+      else{
+      cart=JSON.parse(localStorage.getItem('cart'));
+      //$('.cart').click(function(){
+      //var items=this.id.toString();
+      var items;
+      for(items in cart){
+      if(cart[items]==undefined){
+      cart[items]=0;
+      }
+      updatePlusMinus(cart,items);
+      function updatePlusMinus(cart,items){
+      if(cart[items]>=1){
+      $('#controlButton'+items).html("<span class='plusControl'><button id='plus"+items+"' class='btn btn-success plus'>+</button></span><span class='val' id='val"+items+"'>"+cart[items]+"</span><span class='minusControl'><button id='minus"+items+"' class='btn btn-success minus'>-</button></span>");
+      }
+      else{
+        if(cart[items]==0){
+        $('#controlButton'+items).html("<button id='pr"+items.slice(2,)+"' class='btn btn-danger cart'>Add To Cart</button>");
+      }
+      }
+      }
+      //if plus button pressed
+      $('#plus'+items).click(function(){
+      //$('.plusControl').on("click","button.plus",function(){
+      var plusid=this.id.slice(4,);
+      cart[plusid]=cart[plusid]+1;
+      localStorage.setItem('cart',JSON.stringify(cart));
+      document.getElementById("val"+plusid).innerHTML=cart[plusid];
+      cartUpdater();
+      });
+      //if minus button pressed
+      $('#minus'+items).click(function(){
+      //$('.minusControl').on("click","button.minus",function(){
+      var minusid=this.id.slice(5,);
+      cart[minusid]=cart[minusid]-1;
+      if(cart[minusid]<=0){
+      cart[minusid]=0;
+      updatePlusMinus(cart,minusid);
+      }
+      localStorage.setItem('cart',JSON.stringify(cart));
+      document.getElementById("val"+minusid).innerHTML=cart[minusid];
+      cartUpdater();
+      });
+      //});
+      }
+      }
+      cartUpdater();
+      function cartUpdater(){
+        var sums=Object.values(cart);
+      var totalCart=0;
+      for(var i=0;i<sums.length;i++){
+          totalCart=totalCart+sums[i];
+      }
+      $(".cartUpdate").html(totalCart);
+      }//function end
+
+      //$('.cart').click(function(){
+      $('.controlButtonpr').on("click","button.cart",function(){
+      cartUpdater();
+      var id=this.id.toString();
+      var myprod;
+      if(cart[id]==undefined){
+      cart[id]=1;
+      updatePlusMinus(cart,id);
+      }
+      else{
+      cart[id]=cart[id]+1;
+      updatePlusMinus(cart,id);
+      }
+      localStorage.setItem("cart",JSON.stringify(cart));
+      });
+      $('.cart').click(function(){
+
+      cartUpdater();
+      var id=this.id.toString();
+      var myprod;
+      if(cart[id]==undefined){
+      cart[id]=1;
+      updatePlusMinus(cart,id);
+      }
+      else{
+      cart[id]=cart[id]+1;
+      updatePlusMinus(cart,id);
+      }
+      localStorage.setItem("cart",JSON.stringify(cart));
+      });
+
+  </script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
 </html>
+
+
+
+
+
+
