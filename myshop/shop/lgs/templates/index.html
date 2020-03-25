@@ -71,6 +71,10 @@
            #prodDesc{
            font-family: 'Old Standard TT', serif;
            }
+           #cdimg,#imgid{
+           height:200px;
+           width:285px;
+           }
   </style>
   </head>
   {% load static %}
@@ -83,20 +87,19 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="lgs">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/lgs">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link " href="#">MY ORDER</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link " href="about">PROFILE</a>
+        <a class="nav-link " href="/about">PROFILE</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link " href="contact">CONTACT US</a>
+        <a class="nav-link " href="/contact">CONTACT US</a>
       </li>
-
       <li class="nav-item active ">
-        <a class="nav-link " href="#"><h6>TRACK ORDER</h6></a>
+        <a class="nav-link " href="/tracker"><h6>TRACK ORDER</h6></a>
       </li>
       <li class="nav-item active ">
         <a class="nav-link " href="#"><h6>LOGOUT</h6></a>
@@ -129,14 +132,14 @@
         {%for i in product|slice:"0:"%}
         <div class="col-xs-3 col-sm-3 col-md-3">
           <div class="card" style="width: 18rem;">
-            <img src='/media/{{i.Image}}' class="card-img-top" alt="...">
+            <img id="imgid" src='/media/{{i.Image}}' class="card-img-top" alt="...">
             <div class="card-body">
                 <h2 class="card-title ml-4">{{i.productname}}</h2>
               <p class="card-text">{{i.Description}}</p>
               <span id="controlButtonCarouselpr{{i.id}}">
                   <button id="pr{{i.id}}" class="btn btn-danger cart">Add To Cart</button>
               </span>
-                <a href="lgs/product/{{i.id}}">
+                <a href="/lgs/product/{{i.id}}">
                     <button id="buy{{i.id}}{{i}}" class="btn btn-primary buynow">Buy</button>
                 </a>
             </div>
@@ -166,15 +169,15 @@
         {%for i in element|slice:"0:"%}
         <div class="col-sm-3 col-lg-3 col-md-3 col-xl-3 mt-5">
               <div class="card ml-4" style="width: 18rem;">
-                  <a href=""><img src="/media/{{i.Image}}" class="card-img-top" alt="..."></a>
+                  <a href=""><img id="cdimg" src="/media/{{i.Image}}" class="card-img-top" alt="..."></a>
                     <div class="card-body">
                         <h4 id="prodName" class="card-title">{{i}}</h4>
                         <p id="prodDesc" class="card-text"><h5>{{i.Description}}</h5></p>
                         <p class="card-text"><h3>Prices</h3>{{i.Price}}</p>
                         <span id="controlButtonpr{{i.id}}" class="controlButtonpr">
-                            <button id="pr{{i.id}}" class="btn btn-danger cart">Add To Cart</button>
+                            <button id="/pr{{i.id}}" class="btn btn-danger cart">Add To Cart</button>
                          </span>
-                        <a href="lgs/product/{{i.id}}"><button id="buy {{i.id}}" class="btn btn-primary buynow">BuyNow</button></a>
+                        <a href="/lgs/product/{{i.id}}"><button id="buy {{i.id}}" class="btn btn-primary buynow">BuyNow</button></a>
                     </div>
               </div>
         </div>
@@ -223,7 +226,7 @@
       });
       //if minus button pressed
       $('#minus'+items).click(function(){
-      //$('.minusControl').on("click","button.minus",function(){  
+      //$('.minusControl').on("click","button.minus",function(){
       var minusid=this.id.slice(5,);
       cart[minusid]=cart[minusid]-1;
       if(cart[minusid]<=0){
@@ -254,11 +257,11 @@
       var myprod;
       if(cart[id]==undefined){
       cart[id]=1;
-      updatePlusMinus(cart,id); 
+      updatePlusMinus(cart,id);
       }
       else{
-      cart[id]=cart[id]+1; 
-      updatePlusMinus(cart,id); 
+      cart[id]=cart[id]+1;
+      updatePlusMinus(cart,id);
       }
       localStorage.setItem("cart",JSON.stringify(cart));
       });

@@ -64,8 +64,12 @@
           #total_amt,#payableamt{
           float:right;
           }
+          body{
+          border:1px solid black;
+          }
   </style>
   </head>
+  <body>
   {%for i in afterpayment%}
   <div class="row">
       <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 xol-xs-2"></div>
@@ -203,7 +207,6 @@
                 </form>
             </div>
         </div>
-
     <!-- Optional JavaScript -->
   <script type="text/javascript">
         var val=document.getElementById("items_name").innerHTML;
@@ -219,9 +222,9 @@
         var unit_lists=unit.split(",");
         for(var k=0;k<unit_lists.length-1;k++){
         document.getElementById("gst").innerHTML=document.getElementById("gst").innerHTML+"18%"+"<br>";
-        document.getElementById("gross_amt").innerHTML=document.getElementById("gross_amt").innerHTML+(Math.round(unit_lists[k]*price_units[k]*0.82))+"</br>"
+        document.getElementById("gross_amt").innerHTML=document.getElementById("gross_amt").innerHTML+(Math.round(unit_lists[k]*price_units[k]*1.18))+"</br>"
         document.getElementById("unit").innerHTML=document.getElementById("unit").innerHTML+unit_lists[k]+"<br>";
-        money=money+(unit_lists[k]*price_units[k]*0.82)
+        money=money+(unit_lists[k]*price_units[k]*1.18)
         }
         document.getElementById("total_amt").innerHTML="Total Payable Amount +"+Math.round(money);
         document.getElementById("items_name").innerHTML="";

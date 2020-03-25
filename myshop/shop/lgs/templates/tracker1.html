@@ -1,0 +1,102 @@
+<!--<!doctype html>-->
+<!--<html lang="en">-->
+<!--  <head>-->
+<!--    &lt;!&ndash; Required meta tags &ndash;&gt;-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>&lt;!&ndash;google cdn&ndash;&gt;-->
+<!--      <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>&lt;!&ndash;microsoft cdn&ndash;&gt;-->
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Exo+2&display=swap" rel="stylesheet">-->
+<!--      <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT&display=swap" rel="stylesheet">-->
+<!--    <title>Laxmi General Store-HOME</title>-->
+<!--      <style>-->
+{% extends "basic.html" %}
+
+{% block block_style%}
+#link{
+color:red;
+text-decoration:none;
+}
+#date{
+float:right;
+margin-right:6px;
+}
+#updateorderid{
+background-color:RGB(241,243,244);
+}
+{% endblock %}
+
+{% block block_title %}Order Traker{% endblock %}
+
+{% block block_body %}
+{%for i in updates%}
+    <div class="row">
+        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xs-1"></div>
+        <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9 col-xs-9">
+            <div id="updateorderid" class="alert" role="alert">
+                {%if forloop.counter is 1%}
+                {{i.update}} for OrderId <a id="link" href="biller/{{i.orederid}}">{{i}}</a><span id="date">{{i.dates}}</span>
+                {%endif%}
+                {%if forloop.counter is not 1%}
+                {{i.update}}<span id="date">{{i.dates}}</span>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+    <div id="idaccepter" class="row mt-5">
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xs-2"></div>
+        <div class="col-sm-9 col-lg-9 col-md-9 col-xl-9">
+            <form action="/trackhelper" method="POST" >{% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-4 cols-lg-4 col-md-4 col-xl-4">
+                        <div class="form-group ml-2 mr-2">
+                            <input class="form-control" aria-describedby="emailHelp" placeholder="Your OrderId" id="orderid" name="orderId">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 cols-lg-4 col-md-4 col-xl-4">
+                        <div class="form-group ml-2 mr-2">
+                            <input class="form-control" aria-describedby="emailHelp" placeholder="Your Email Id" id="emailId" name="emailId">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 col-lg-8 col-md-8 col-xl-8" >
+                        <div class="form-group mr-2">
+                        <button class="btn btn-primary btn-block ml-2">Track My Order</button>
+                        </div>
+                    </div>
+<!--                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xs-2"></div>-->
+                </div>
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xs-2"></div>
+            </form>
+
+    </div>
+{% endblock %}
+    <!-- Optional JavaScript -->
+  {% block block_javascript %}
+<!--  <script type="text/javascript">-->
+  if(document.getElementById("updateorderid").innerHTML==""){
+  pass;
+  }
+  else{
+  document.getElementById("idaccepter").style.display = "none";
+  }
+  {% endblock %}
+
+<!--&lt;!&ndash;  </script>&ndash;&gt;-->
+<!--    &lt;!&ndash; jQuery first, then Popper.js, then Bootstrap JS &ndash;&gt;-->
+<!--    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>-->
+<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
+<!--</html>-->
+
+
+
+
+
+
+
+

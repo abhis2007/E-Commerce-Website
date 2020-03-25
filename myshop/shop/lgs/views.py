@@ -6,7 +6,9 @@ from .models import orderfromwebsite
 from .models import after_payment
 from django.views.decorators.csrf import csrf_exempt
 from paytm import Checksum
+from .models import orderupdate
 import random
+# from .forms import userProfileInfoForm
 
 MERCHANT_KEY='H@YnLbyCrUlW8bE4'
 
@@ -53,6 +55,7 @@ def about(request):
 def contact(request):
     return render(request,'contact.html')
 def cart(request):
+
     return render(request,'cart.html')
 def tracker(request):
     return render(request,'tracker.html')
@@ -68,14 +71,6 @@ def checkoutPage(request,checkoutId):
     return render(request,'checkout.html',{"cartProduct":myCart})
 
 def billingsearcher(request):
-#     if request.method=="POST":
-#         orderId=request.POST.get("orderId")
-#     myCart=product.objects.all()
-#     beforepayment=orderfromwebsite.objects.all()
-#     afterpayment=after_payment.objects.all()
-#     print("jjjj",orderId,afterpayment[0],len(afterpayment))
-#     # for i in range(len(afterpayment)):
-#     params={"cartProduct":myCart,"beforepayment":beforepayment,"afterpayment":afterpayment}
     return render(request,'bill_searcher.html')
 
 def billingpage(request):
@@ -86,6 +81,19 @@ def billingpage(request):
         afterpayment=after_payment.objects.filter(orderid=orderId)
         params={"beforepayment":beforepayment,"afterpayment":afterpayment}
         return render(request,'billing.html',params)
+
+def biller(request,orderid):
+        beforepayment=orderfromwebsite.objects.filter(orderId=orderid)
+        afterpayment=after_payment.objects.filter(orderid=orderid)
+        params={"beforepayment":beforepayment,"afterpayment":afterpayment}
+        return render(request,'billing.html',params)
+
+
+def biller(request,orderid):
+    beforepayment = orderfromwebsite.objects.filter(orderId=orderid)
+    afterpayment = after_payment.objects.filter(orderid=orderid)
+    params = {"beforepayment": beforepayment, "afterpayment": afterpayment}
+    return render(request, 'billing.html', params)
 
 def contact(request):
     if request.method=="POST":
@@ -160,6 +168,8 @@ def paytmsentposturl(request):
                                   transaction_id=return_response_by_paytm['TXNID'],
                                   checksum=verify)
     PAYTMRESPONSE.save()
+    orderupdates=orderupdate(orederid=return_response_by_paytm['ORDERID'],update="Order Placed Successfuly on"+return_response_by_paytm['TXNDATE'])
+    orderupdates.save()
     if (verify):
         if return_response_by_paytm['RESPCODE'] == '01':
             return render(request, "paytmsatuspage.html", {'paytmresponse': return_response_by_paytm})
@@ -204,3 +214,34 @@ def search(request):
     params={'allprods':databases,'product':allproducts,'length':len(databases)}
     # databases={'catlen':length,'category':lists,'total_slides':slides,'range':range(1,slides),'product':products,'val':range(1,n)}
     return render(request,'search.html',params)
+
+def trackhelper(request):
+    if(request.method=="POST"):
+        emailId=request.POST.get("emailId")
+        orderid=request.POST.get("orderId")
+        params=orderupdate.objects.filter(orederid=orderid)
+        if(len(orderfromwebsite.objects.filter(orderId=orderid))!=0 and len(orderfromwebsite.objects.filter(email=emailId))!=0):
+            return render(request,"tracker1.html",{"updates":params})
+        return render(request,"index.html")
+
+#
+# def register(request):
+#     registered=False
+#     if request.method="POST":
+#         user_form=UserForm(date=request.POST)
+#         profile_form=userProfileInfoForm(data=request.POST)
+#
+#         if user_form.is_valid() and profile_form.is_valid():
+#             user=user_form.save()
+#
+#             profile=profile_form.save(commit=False)
+#             profile.user=user
+#
+#             if 'lgs/images' in request.FILES:
+#                 profile.lgs/images=request.FILES['']
+#
+
+
+
+def logout(request):
+    return render(request, "logout.html")

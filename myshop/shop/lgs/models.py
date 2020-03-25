@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django_google_maps import fields as map_fields
+
 
 # Create your models here.
 class product(models.Model):
@@ -58,4 +61,22 @@ class after_payment(models.Model):
     def __str__(self):
         return self.orderid
 
+class orderupdate(models.Model):
+    orederid=models.CharField(max_length=50)
+    update=models.CharField(max_length=500)
+    dates=models.DateTimeField()
 
+    def __str__(self):
+        return self.orederid
+
+#
+# class userProfileInfo(models.Model):
+#     user=models.OneToOneField(User)
+#     picture=models.ImageField(upload_to='lgs/images')
+#
+#     def __str__(self):
+#         return self.User.username
+
+class Rental(models.Model):
+    address = map_fields.AddressField(max_length=200)
+    geolocation = map_fields.GeoLocationField(max_length=100)

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_google_maps',
     'lgs.apps.LgsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -122,3 +123,7 @@ STATIC_URL = '/static/'
 #manage media or image
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL='/media/'
+
+LOGIN_URL="/userlogin"
+
+GOOGLE_MAPS_API_KEY="AIzaSyB-Z1hzPwXT4rZ9sydAfmNjxXRU3_FBb_0"

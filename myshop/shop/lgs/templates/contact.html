@@ -1,22 +1,13 @@
-{%load static%}
-<!doctype html>
-<html lang="en">
-  <head>
-
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>{% block title%}{% endblock %}</title>
-  <script type="text/css">
+{%extends "basic.html" %}
+{% block block_title%}Contact Us{% endblock %}
+{% block block_style %}
 
 #icon{
 color:green;
 margin:relative;
 position-top:10px;
 }
+
 .icon{
   padding: 10px;
   background: dodgerblue;
@@ -25,51 +16,18 @@ position-top:10px;
   text-align: center;
 border: 2px solid dodgerblue;
 }
+
 #map{
   height:100%;
 }
-  </script>
-  </head>
-  <body>
-  {% load static %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="navbar-brand">LAXMI GENERAL STORE</div>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
-      </li>
+.flexer{
+display:flex;
+height:95%;
+}
 
-      <li class="nav-item active">
-        <a class="nav-link " href="#">MY CART</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link " href="#">MY ORDER</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link " href="lgs/about">PROFILE</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link " href="lgs/contact">CONTACT US</a>
-      </li>
-
-      <li class="nav-item active ">
-        <a class="nav-link " href="#"><h6>TRACK ORDER</h6></a>
-      </li>
-      <li class="nav-item active ">
-        <a class="nav-link " href="#"><h6>LOGOUT</h6></a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+{% endblock %}
+{% block block_body %}
   <div class="row">
     <div id="map" class="col-sm-12 col-md-4 col-xl-4 col-lg-4 ml-2">
       <iframe src="https://www.google.com.qa/maps/d/u/0/embed?mid=12wSi9QVGaFrFJNHdRdu7hvmGUJ7ITLFq" width="640" height="590"></iframe>
@@ -84,113 +42,163 @@ border: 2px solid dodgerblue;
      <p class="h4 mb-4 pl-5"><h1>Contact Us</h1></p>
    <div class="form-group">
     <div class="row">
-      <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 mt-2">
-        <i class="fa fa-key icon"></i>
-      </div>
       <div class="col-sm-11 col-md-11 col-lg-11 col-xl-11">
-        <input type="name" id="input_name" class="form-control" placeholder="Name" name="name">
+        <div class="flexer"><i class="fa fa-key icon"></i><input type="name" id="input_name" class="form-control" placeholder="Name" name="name"></div>
       </div>
     </div>
    </div>
    <div class="form-group">
     <div class="row">
-      <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 mt-2 icon">
-        <i class="fa fa-key icon"></i>
-      </div>
       <div class="col-sm-11 col-md-11 col-lg-11 col-xl-11">
-        <input type="Number" id="input_phone" class="form-control input-field" placeholder="Phone Number" name="phone">
-      </div>
+        <div class="flexer"><i class="fa fa-key icon"></i><input type="Number" id="input_phone" class="form-control input-field" placeholder="Phone Number" name="phone"></div>
       </div>
     </div>
+   </div>
    <div class="form-group">
     <div class="row">
-      <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 mt-2">
-        <i class="fa fa-key icon"></i>
-      </div>
       <div class="col-sm-11 col-md-11 col-lg-11 col-xl-11">
-        <input type="text" id="input_address" class="form-control input-field" placeholder="Address" name="address">
+        <div class="flexer"><i class="fa fa-key icon"></i><input type="text" id="input_address" class="form-control input-field" placeholder="Address" name="address"></div>
       </div>
       </div>
    </div>
   <div class="form-group">
     <div class="row">
-      <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 mt-2">
-        <i id="icon" class="fa fa-user"></i>
-      </div>
       <div class="col-sm-11 col-md-11 col-lg-11 col-xl-11">
-        <input type="Email" id="input_email" class="form-control input-field" placeholder="Enter Email" name="email">
+        <div class="flexer"><i class="fa fa-key icon"></i><input type="Email" id="input_email" class="form-control input-field" placeholder="Enter Email" name="email"></div>
       </div>
       </div>
     </div>
-  <div class="form-group form-check ml-5">
-    <input id="input_check" type="checkbox" class="form-check-input ml-4 pl-5" id="check" name="checkbox">
-    <label class="form-check-label ml-5 pl-5">Check me out</label>
+  <div class="form-group form-check ml-2">
+    <input id="input_check" type="checkbox" class="form-check-input ml-4" id="check" name="checkbox">
+    <label class="form-check-label ml-5 ">Agree Terms And Condition</label>
   </div>
   <div class="form-group">
     <label  class="text-center ml-5"><h4><strong>Comment</strong></h4></label>
     <textarea id="input_comment" class="form-control mb-2" rows="5" name="desc"></textarea>
   </div>
-  <input type="submit" class="btn btn-primary form-control">
+  <input type="submit" class="btn btn-primary form-control" id="clicked">
 </form>
     </div>
   </div>
+{% endblock %}
     <!-- Optional JavaScript -->
-  <script>
-    if(document.getElementById("data").innerHTML==""){
-      document.getElementById("div1").style.display = "none";
-    }
-    else{
-      document.getElementById("div1").style.display = "block";
-    }
-      function validation(){
-        document.getElementById("data").innerHTML="";
-        var element=0;
-      if(document.getElementById("input_name").innerHTML==""){
-        document.getElementById("data").innerHTML+="Name Not Entered, ";
-        element=element+1;
-      document.getElementById("div1").style.display = "block";
-      return false;
-    }
-    if(document.getElementById("input_address").innerHTML==""){
-        document.getElementById("data").innerHTML+="Address Not Entered, ";
-        element=element+1;
-      document.getElementById("div1").style.display = "block";
-      return false;
-    }
-    if(document.getElementById("input_phone").innerHTML==""){
-        document.getElementById("data").innerHTML+="Phone Not Entered, ";
-        element=element+1;
-      document.getElementById("div1").style.display = "block";
-      return false;
-    }
-      if(document.getElementById("input_email").innerHTML==""){
-        document.getElementById("data").innerHTML+="Email Not Entered, ";
-        element=element+1;
-      document.getElementById("div1").style.display = "block";
-      return false;
-    }
-      
-      if(document.getElementById("input_check").innerHTML==""){
-        document.getElementById("data").innerHTML+="CheckBox Not Selected, ";
-        element=element+1;
-      document.getElementById("div1").style.display = "block";
-      return false;
-    }
-      if(document.getElementById("input_comment").innerHTML==""){
-        document.getElementById("data").innerHTML+="Not Commented, ";
-        element=element+1;
-      document.getElementById("div1").style.display = "block";
-      return false;
-    }
-    if(element>0){
-      return false;
-    }
-    }
-    
-  </script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
-</html>
+{% block block_javascript %}
+   <!--if(document.getElementById("data").innerHTML==""){-->
+      <!--document.getElementById("div1").style.display = "none";-->
+    <!--}-->
+    <!--else{-->
+      <!--document.getElementById("div1").style.display = "block";-->
+    <!--}-->
+      <!--function validation(){-->
+        <!--document.getElementById("data").innerHTML="";-->
+        <!--var element=0;-->
+      <!--if(document.getElementById("input_name").innerHTML==""){-->
+        <!--document.getElementById("data").innerHTML+="Name Not Entered, ";-->
+        <!--element=element+1;-->
+      <!--document.getElementById("div1").style.display = "block";-->
+      <!--return false;-->
+    <!--}-->
+    <!--if(document.getElementById("input_address").innerHTML==""){-->
+        <!--document.getElementById("data").innerHTML+="Address Not Entered, ";-->
+        <!--element=element+1;-->
+      <!--document.getElementById("div1").style.display = "block";-->
+      <!--return false;-->
+    <!--}-->
+    <!--if(document.getElementById("input_phone").innerHTML==""){-->
+        <!--document.getElementById("data").innerHTML+="Phone Not Entered, ";-->
+        <!--element=element+1;-->
+      <!--document.getElementById("div1").style.display = "block";-->
+      <!--return false;-->
+    <!--}-->
+      <!--if(document.getElementById("input_email").innerHTML==""){-->
+        <!--document.getElementById("data").innerHTML+="Email Not Entered, ";-->
+        <!--element=element+1;-->
+      <!--document.getElementById("div1").style.display = "block";-->
+      <!--return false;-->
+    <!--}-->
+
+      <!--if(document.getElementById("input_check").innerHTML==""){-->
+        <!--document.getElementById("data").innerHTML+="CheckBox Not Selected, ";-->
+        <!--element=element+1;-->
+      <!--document.getElementById("div1").style.display = "block";-->
+      <!--return false;-->
+    <!--}-->
+      <!--if(document.getElementById("input_comment").innerHTML==""){-->
+        <!--document.getElementById("data").innerHTML+="Not Commented, ";-->
+        <!--element=element+1;-->
+      <!--document.getElementById("div1").style.display = "block";-->
+      <!--return false;-->
+    <!--}-->
+    <!--if(element>0){-->
+      <!--return false;-->
+    <!--}-->
+    <!--}-->
+        alert("called");
+        alert("called");
+        document.getElementById("div1").style.display = "none";
+        const name = document.getElementById("input_name");
+        const phone = document.getElementById("input_phone");
+        const address = document.getElementById("input_address");
+        const email = document.getElementById("input_email");
+        const ok_button = document.getElementById("clicked");
+
+
+        var count=0;
+
+
+        count=0;
+            name.addEventListener('keyup', function (event) {
+                IsNameValid=name.checkValidity;
+                if(IsNameValid){
+                    count+=1;
+                }
+                else{
+                    document.getElementById("data").innerHTML+="Name Is Not Entered ";
+                    ok_button.disabled=true;
+                }
+            });
+
+            phone.addEventListener('keyup' , function (event){
+                IsPhoneValid=phone.checkValidity;
+                if(IsPhoneValid){
+                    count+=1;
+                }
+                else{
+                    document.getElementById("data").innerHTML+="Phone Number Is Not Entered ";
+                    ok_button.disabled=true;
+                }
+            });
+
+            address.addEventListener('keyup' , function (event){
+                IsAddressValid=address.checkValidity;
+                if(IsAddressValid){
+                    count+=1;
+                }
+                else{
+                    document.getElementById("data").innerHTML+="Address Is Not Entered ";
+                    ok_button.disabled=true;
+                }
+            )};
+
+            email.addEventListener('keyup' , function (event){
+                IsEmailValid=address.checkValidity;
+                if(IsEmailValid){
+                    count+=1;
+                }
+                else{
+                    document.getElementById("data").innerHTML+="Address Is Not Entered ";
+                    ok_button.disabled=true;
+                }
+            });
+        if(count>0 && count<=4){
+            ok_button.disabled=false;
+        }
+
+        okButton.addEventListener('click', function (event) {
+          ok_button.submit();
+        });
+
+
+        validation();
+        <!--}-->
+    {% endblock %}

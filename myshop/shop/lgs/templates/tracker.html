@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "basic.html" %}
+{% block block_style %}{% endblock %}
+{% block block_title%}Cart{% endblock %}
+{% block block_body %}
+    <div class="row mt-2">
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xs-2"></div>
+        <div class="col-sm-9 col-lg-9 col-md-9 col-xl-9">
+            <form action="/trackhelper" method="POST" >{% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-4 cols-lg-4 col-md-4 col-xl-4">
+                        <div class="form-group ml-2 mr-2">
+                            <input class="form-control" aria-describedby="emailHelp" placeholder="Your OrderId" id="orderid" name="orderId">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 cols-lg-4 col-md-4 col-xl-4">
+                        <div class="form-group ml-2 mr-2">
+                            <input class="form-control" aria-describedby="emailHelp" placeholder="Your Email Id" id="emailId" name="emailId">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 col-lg-8 col-md-8 col-xl-8" >
+                        <div class="form-group mr-2">
+                        <button class="btn btn-primary btn-block ml-2">Track My Order</button>
+                        </div>
+                    </div>
+<!--                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xs-2"></div>-->
+                </div>
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xs-2"></div>
+            </form>
+    </div>
+{% endblock %}
 
-</body>
-</html>
+ {% block block_javascript %}
+<!--  javascript code will stay here-->
+  {% endblock %}
