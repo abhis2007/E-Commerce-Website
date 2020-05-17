@@ -34,6 +34,6 @@ urlpatterns = [
     path("contact",views.contact,name="contact"),
     path("paytmsentposturl",views.paytmsentposturl,name="paytmsentposturl"),
     path("logout",views.logout,name="paytmsentposturl"),
-    path("checkout/handlepaymentmode",views.handlepaymentmode,name="handlepaymentmode"),
+    path("checkout/handlepaymentmode/",views.handlepaymentmode,name="handlepaymentmode"),
     # path("checkout/handlepaymentmode",views.,name=""),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
